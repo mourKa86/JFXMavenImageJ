@@ -3,15 +3,24 @@ package com.myGroup.controller;
 import com.myGroup.view.TIFFCreator;
 
 
+import ij.ImagePlus;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import net.imagej.Dataset;
+import net.imagej.ImageJ;
+import net.imglib2.img.Img;
+import net.imglib2.img.display.imagej.ImageJFunctions;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class MainWindowController {
@@ -35,7 +44,7 @@ public class MainWindowController {
 
         imageView.setImage(image);
 
-        /*ImageJ imageJ = new ImageJ();
+        ImageJ imageJ = new ImageJ();
         Dataset dataset = null;
 
         try {
@@ -44,8 +53,39 @@ public class MainWindowController {
             e.printStackTrace();
         }
 
+        String imageName = selectedFile.getName();
+
         Img imp2 = dataset.getImgPlus().getImg();
-        ImagePlus imp =  ImageJFunctions.wrap(imp2 ,"imageName");*/
+        ImagePlus imp =  ImageJFunctions.wrap(imp2 ,imageName);
+
+
+        int chCount = (int) dataset.getChannels();
+        int nSlices = imp.getNSlices();
+
+        System.out.println("file name selected: " + imageName + "\n"  +
+                nSlices + " slices in the one image" + "\n" +
+                "Number of channels " + chCount);
+
+
+        // creating the open option window
+        Stage stage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/ShowResultsWindow.fxml"));
+        ShowResultsWindowController showResultsWindowController = new ShowResultsWindowController();
+        fxmlLoader.setController(showResultsWindowController);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        showResultsWindowController.setLabelImageName(imageName);
+        showResultsWindowController.setLabelSlicesNumber(nSlices);
+        showResultsWindowController.setLabelChannelsNumber(chCount);
+        stage.setScene(new Scene(fxmlLoader.getRoot()));
+        stage.showAndWait();
 
     }
 

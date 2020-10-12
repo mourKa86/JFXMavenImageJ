@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="166.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <Label layoutX="34.0" layoutY="35.0" text="Image Name: " />
+      <Label layoutX="34.0" layoutY="66.0" text="Number of Slices: " />
+      <Label layoutX="34.0" layoutY="101.0" text="Number of Channels: " />
+      <Label fx:id="labelImageName" layoutX="171.0" layoutY="35.0" prefHeight="17.0" prefWidth="141.0" />
+      <Label fx:id="labelSlicesNumber" layoutX="171.0" layoutY="66.0" prefHeight="17.0" prefWidth="141.0" />
+      <Label fx:id="labelChannelsNumber" layoutX="171.0" layoutY="101.0" prefHeight="17.0" prefWidth="141.0" />
+   </children>
+</AnchorPane>
